@@ -27,5 +27,4 @@ class Activity
     amount_owed = amount_to_be_paid - @participants[participant]
     amount_owed.round(2)
   end
-
 end

@@ -31,6 +31,8 @@ class Reunion
 
   def output_total_amounts_owed
     amounts_owed = calculate_total_amounts_owed
+    amounts_owed.each do |participant|
+      puts "#{participant[0]} owes $#{participant[1]}"
+    end
   end
-
 end
