@@ -42,10 +42,25 @@ class ReunionTest < Minitest::Test
     traffic.add_participant('Ron')
     traffic.add_participant('Hermionie')
 
-    assert_equal 225, reunion.total_cost_of_reunion
+    assert_equal 225, reunion.calculate_total_cost_of_reunion
   end
 
-  
+  def test_it_can_calculate_amount_owed_per_person_for_entire_reunion
+    reunion = Reunion.new('Somewhere near the Missouri-Arkansas border')
+    winter = reunion.add_activity('Preparing for a long cold winter', 20, 10)
+    vacation= reunion.add_activity('Taking a much needed vacation', 10, 25)
+    inlaws = reunion.add_activity('Meeting your in-laws', 100, 10)
+    winter.add_participant('Harry')
+    winter.add_participant('Ron')
+    vacation.add_participant('Harry')
+    vacation.add_participant('Hermionie')
+    inlaws.add_participant('Ron')
+    inlaws.add_participant('Hermionie', 100)
 
+    amounts_owed = reunion.calculate_total_amounts_owed
 
+    assert_equal 50.00, amounts_owed['Harry']
+    assert_equal 80.00, amounts_owed['Ron']
+    assert_equal -10.00, amounts_owed['Hermionie']
+  end
 end

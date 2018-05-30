@@ -12,10 +12,25 @@ class Reunion
     return new_activity
   end
 
-  def total_cost_of_reunion
+  def calculate_total_cost_of_reunion
     @activities.inject(0) do |total_reunion_cost, activity|
       total_reunion_cost += activity.total_cost
       total_reunion_cost
     end
   end
+
+  def calculate_total_amounts_owed
+    amounts_owed = Hash.new(0)
+    @activities.each do |activity|
+      activity.participants.each do |participant|
+        amounts_owed[participant[0]] += activity.amount_owed(participant[0]).round(2)
+      end
+    end
+    return amounts_owed
+  end
+
+  def output_total_amounts_owed
+    amounts_owed = calculate_total_amounts_owed
+  end
+
 end
