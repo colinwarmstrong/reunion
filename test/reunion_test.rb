@@ -30,4 +30,22 @@ class ReunionTest < Minitest::Test
     knitting = reunion.add_activity('ultra extreme ballistic knitting adventure')
     assert_equal [safari, bowling, knitting], reunion.activities
   end
+
+  def test_it_can_calculate_total_cost_of_the_reunion
+    reunion = Reunion.new('The bad part of Detroit')
+    taxes = reunion.add_activity('Doing taxes', 10, 10)
+    lawn_care = reunion.add_activity('Basic lawn maintenance', 50, 25)
+    traffic = reunion.add_activity('Getting stuck in traffic', 100, 10)
+    taxes.add_participant('Harry')
+    taxes.add_participant('Ron')
+    lawn_care.add_participant('Hermionie')
+    traffic.add_participant('Ron')
+    traffic.add_participant('Hermionie')
+
+    assert_equal 225, reunion.total_cost_of_reunion
+  end
+
+  
+
+
 end

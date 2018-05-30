@@ -11,4 +11,11 @@ class Reunion
     @activities << new_activity
     return new_activity
   end
+
+  def total_cost_of_reunion
+    @activities.inject(0) do |total_reunion_cost, activity|
+      total_reunion_cost += activity.total_cost
+      total_reunion_cost
+    end
+  end
 end
