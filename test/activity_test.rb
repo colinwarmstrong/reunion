@@ -35,7 +35,7 @@ class ActivityTest < Minitest::Test
     assert_equal 3, activity.participants.length
   end
 
-  def test_we_can_find_total_cost
+  def test_it_can_find_total_cost
     activity = Activity.new('running for mayor', 1, 1_000_000_000)
     activity.add_participant('Billy Goat')
     expected = activity.total_cost
@@ -46,5 +46,31 @@ class ActivityTest < Minitest::Test
     expected = activity.total_cost
 
     assert_equal 2_000_000_001, expected
+  end
+
+  def test_it_can_calculate_cost_per_person
+    activity = Activity.new('examining the duality of man', 10, 10)
+
+    activity.add_participant('Harry')
+    assert_equal 20, activity.cost_per_person
+
+    activity.add_participant('Ron')
+    assert_equal 15, activity.cost_per_person
+
+    activity.add_participant('Hermionie')
+    assert_equal 13.33, activity.cost_per_person
+  end
+
+  def test_it_calculate_amount_owed_for_each_participant
+    activity = Activity.new('learning to love again', 100, 100)
+
+    activity.add_participant('Harry', 50)
+    assert_equal 150, activity.amount_owed('Harry')
+
+    activity.add_participant('Ron', 10)
+    assert_equal 140, activity.amount_owed('Ron')
+
+    activity.add_participant('Hermionie', 500)
+    assert_equal -366.67, activity.amount_owed('Hermionie')
   end
 end
